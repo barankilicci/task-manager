@@ -54,7 +54,7 @@ enum AccessLevel {
 model WorkspaceMember {
   id            String          @id @default(uuid())
   userId        String
-  User          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   workspaceId   String
   workspace     Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   accessLevel   AccessLevel     @default(MEMBER)
@@ -80,13 +80,13 @@ model Project {
   updatedat     DateTime        @updatedAt
   documentation Documentation[]
 
-  @@unique([workspaceId])
+  @@index([workspaceId])
 }
 
 model ProjectAccess {
   id                String          @id @default(uuid())
   workspaceMemberId String
-  WorkspaceMember   WorkspaceMember @relation(fields: [workspaceMemberId], references: [id], onDelete: Cascade)
+  workspaceMember   WorkspaceMember @relation(fields: [workspaceMemberId], references: [id], onDelete: Cascade)
 
   projectId String
   Project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
