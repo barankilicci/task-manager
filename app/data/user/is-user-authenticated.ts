@@ -5,13 +5,13 @@ export const userRequired = async () => {
   const { isAuthenticated, getUser } = getKindeServerSession();
 
   const isUserAuthenticated = await isAuthenticated();
-
   if (!isUserAuthenticated) redirect("/api/auth/login");
 
   const user = await getUser();
+  if (!user) redirect("/api/auth/login");
 
   return {
-    user,
+    user, // artık TypeScript açısından kesin olarak null değil
     isUserAuthenticated,
   };
 };
